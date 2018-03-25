@@ -13,4 +13,4 @@ info = json.loads(info_raw)
 for num_obj in range(len(info['results'])):
     print("El id", num_obj, "es:", info['results'][num_obj]['id'])
 #  Para obtener diez objetos que coincidan con mi busqueda, utilizo limit (cuando mandamos el msj
-#  de solicitud. Y para obtener informacion de cada uno, hago uso de un bucle for.
+#  de solicitud). Y para obtener informacion de cada uno, hago uso de un bucle for.
