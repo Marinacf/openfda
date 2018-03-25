@@ -3,17 +3,22 @@ import json
 
 headers = {'User-Agent': 'http-client'}
 
-conn = http.client.HTTPSConnection("api.fda.gov")
-conn.request("GET", '/drug/label.json?search=active_ingredient:"acetylsalicylic"&limit=100', None, headers)
-r1 = conn.getresponse()
+conexion = http.client.HTTPSConnection("api.fda.gov")
+conexion.request("GET", '/drug/label.json?search=active_ingredient:"acetylsalicylic"&limit=100', None, headers)
+r1 = conexion.getresponse()
 print(r1.status, r1.reason)
-repos_raw = r1.read().decode("utf-8")
-conn.close()
+info_raw = r1.read().decode("utf-8")
+conexion.close()
 
-repos = json.loads(repos_raw)  # transformamos el documento en diccionario
+info = json.loads(info_raw)
 
-for num_obj in range(len(repos['results'])):
+for num_obj in range(len(info['results'])):
     try:
-        print("El fabricante", num_obj, "es:", repos['results'][num_obj]['openfda']['manufacturer_name'][0])
+        print("El fabricante", num_obj, "es:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
     except KeyError:
         print("El fabricante", num_obj, "no tiene fabricante especificado.")
+#  Para encontrar todos aquellos fabricantes de las aspirinas, utilizamos un limit en el mensaje
+#  de peticion, de modo que nos devolvera todos aquellos archivos que coincidan con la busqueda
+#  manual realizada (search parameter). Para obtener informacion, realizamos un bucle for sobre
+#  todos aquellos archivos que coincidieron con el 'search', recalcando que si no exite la info
+#  buscada, hagamos un except con dicho KeyError.
