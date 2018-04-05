@@ -26,7 +26,7 @@ for num_obj in range(len(info['results'])):
         print("*El 'numero de results'", num_obj, ", no tiene fabricante especificado.")
 
 #  Para encontrar todos aquellos fabricantes de las aspirinas, utilizamos un limit en el mensaje
-#  de peticion, de modo que nos devolvera todos aquellos archivos que coincidan con la busqueda
+#  de petición, de modo que nos devolvera todos aquellos archivos que coincidan con la busqueda
 #  manual realizada (search parameter). Para obtener informacion, realizamos un bucle for sobre
 #  todos aquellos archivos que coincidieron con el 'search', recalcando que si no exite la info
 #  buscada, hagamos un except con dicho KeyError.

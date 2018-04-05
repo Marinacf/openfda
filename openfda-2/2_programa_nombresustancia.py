@@ -30,6 +30,6 @@ while True:
  # En este caso, para encontrar los fabricantes de las aspirinas, en vez de buscarlos por su principio activo, los
  # buscamos mediante el 'nombre de sustancia', y al obtener mediante el limit, los 100 resultados que nos posibilita
  # este recurso, debemos asegurarnos de que estamos obteniendo todos los posibles, para ello usamos skip.
- # Skip nos permitira, mediante un bucle infinito y el cambio de su valor, llegar a todos aquellos valores que
+ # Skip nos permitirá, mediante un bucle infinito y el cambio de su valor, llegar a todos aquellos valores que
  # limit no habia podido obtener, y que concuerden con el search. En el momento en que los resultados restantes fueran
  # menores que 100 (el limite de limit), cerrariamos el bucle, habiendo obtenido todos los fabricantes de las aspirinas.
