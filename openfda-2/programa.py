@@ -21,9 +21,9 @@ info = json.loads(info_raw)
 
 for num_obj in range(len(info['results'])):
     try:
-        print("*El 'numero de results'", num_obj, "es:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
+        print("*El 'numero de results'", num_obj, ", tiene el fabricante:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
     except KeyError:
-        print("*El 'numero de results'", num_obj, "no tiene fabricante especificado.")
+        print("*El 'numero de results'", num_obj, ", no tiene fabricante especificado.")
 
 #  Para encontrar todos aquellos fabricantes de las aspirinas, utilizamos un limit en el mensaje
 #  de peticion, de modo que nos devolvera todos aquellos archivos que coincidan con la busqueda
