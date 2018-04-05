@@ -3,7 +3,7 @@ import socketserver
 import http.client
 import json
 
-PORT = 8080 # Puerto donde lanzar el servidor
+PORT = 8090 # Puerto donde lanzar el servidor
  # Creamos en primer lugar un codigo que funcione como cliente
 headers = {'User-Agent': 'http-client'}
 try:
@@ -65,7 +65,7 @@ try:
 except KeyboardInterrupt:
     print("")
     print("Servidor interrumpido por el usuario")
-    exit(1)
+    exit(1) # Salimos del código si el usuario interrumpe el server.
 print("")
 print("Servidor parado")
 httpd.close()
