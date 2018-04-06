@@ -20,9 +20,9 @@ conexion.close()
 info = json.loads(info_raw)
 
 for num_obj in range(len(info['results'])):
-    try:
+    if info['results'][num_obj]['openfda']:
         print("*El 'numero de results'", num_obj, ", tiene el fabricante:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
-    except KeyError:
+    else:
         print("*El 'numero de results'", num_obj, ", no tiene fabricante especificado.")
 
 #  Para encontrar todos aquellos fabricantes de las aspirinas, utilizamos un limit en el mensaje
