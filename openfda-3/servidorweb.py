@@ -3,7 +3,7 @@ import socketserver
 import http.client
 import json
 
-PORT = 8090 # Puerto donde lanzar el servidor
+PORT = 8000 # Puerto donde lanzar el servidor
  # Creamos en primer lugar un codigo que funcione como cliente
 headers = {'User-Agent': 'http-client'}
 try:
@@ -25,6 +25,8 @@ info = json.loads(info_raw)
 for elemento in range(len(info['results'])):
     if (info['results'][elemento]['openfda']):
         medicamentos.append(info['results'][elemento]['openfda']['generic_name'][0])
+    else:
+        medicamentos.append('El medicamento no tiene informacion asignada')
 # Para introducirlos en la lista, itero sobre la la longitud de los 10 resultados que nos dan, y en el caso de que
 # exista el apartado 'openfda', y por tanto, su información, incluiremos a la lista medicamentos, los nombres
 # genéricos de los medicamentos de los diez resultados que obtenemos con limit.
