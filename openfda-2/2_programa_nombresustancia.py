@@ -17,7 +17,7 @@ while True:
     print(r1.status, r1.reason)
     info_raw = r1.read().decode("utf-8")
     conexion.close()
-    info = json.loads(info_raw)  
+    info = json.loads(info_raw)
     for num_obj in range(len(info['results'])):
         if info['results'][num_obj]['openfda']:
             print("El fabricante", num_obj, "es:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
@@ -28,8 +28,8 @@ while True:
     skip_num = skip_num + 100
 
  # En este caso, para encontrar los fabricantes de las aspirinas, en vez de buscarlos por su principio activo, los
- # buscamos mediante el 'nombre de sustancia', y al obtener mediante el limit, los 100 resultados que nos posibilita
+ # buscamos mediante el 'nombre de sustancia', y al obtener mediante el limit los 100 resultados que nos posibilita
  # este recurso, debemos asegurarnos de que estamos obteniendo todos los posibles, para ello usamos skip.
  # Skip nos permitirá, mediante un bucle infinito y el cambio de su valor, llegar a todos aquellos valores que
- # limit no habia podido obtener, y que concuerden con el search. En el momento en que los resultados restantes fueran
- # menores que 100 (el limite de limit), cerrariamos el bucle, habiendo obtenido todos los fabricantes de las aspirinas.
+ # limit no había podido obtener, y que concuerden con el search. En el momento en que los resultados restantes fueran
+ # menores que 100 (el limite de limit), cerrariamos el bucle de skip, habiendo obtenido todos los fabricantes de las aspirinas.
