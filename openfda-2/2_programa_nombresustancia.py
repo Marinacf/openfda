@@ -17,7 +17,7 @@ while True:
     print(r1.status, r1.reason)
     info_raw = r1.read().decode("utf-8")
     conexion.close()
-    info = json.loads(info_raw)  # transformamos el documento en diccionario
+    info = json.loads(info_raw)  
     for num_obj in range(len(info['results'])):
         if info['results'][num_obj]['openfda']:
             print("El fabricante", num_obj, "es:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
