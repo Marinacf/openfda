@@ -2,11 +2,11 @@ import http.client
 import json
 
 headers = {'User-Agent': 'http-client'}
-skip=0
+skip_num=0
 while True:
     try:
         conexion = http.client.HTTPSConnection("api.fda.gov")
-        conexion.request("GET", '/drug/label.json?search=substance_name:"ASPIRIN"+active_ingredient:"acetylsalicylic"&limit=100&skip='+str(skip), None, headers)
+        conexion.request("GET", '/drug/label.json?search=substance_name:"ASPIRIN"+active_ingredient:"acetylsalicylic"&limit=100&skip='+str(skip_num), None, headers)
         #  En este caso buscamos resultados que concuerden con cualquiera de los dos campos, aspirina o su principio activo
         #  Y si pusieramos +AND+ en vez de un solo +, buscariamos aquellos resultados que concordasen(match) con ambos
         #  campos a la vez. Tambien usamos skip por la misma razón que en el programa  que unicamente usamos el 'nombre de la sustancia'.
@@ -23,10 +23,10 @@ while True:
     conexion.close()
     info = json.loads(info_raw)  # transformamos el documento en diccionario
     for num_obj in range(len(info['results'])):
-        info['results'][num_obj]['openfda']:
+        if info['results'][num_obj]['openfda']:
             print("El fabricante", num_obj, "es:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
         else:
             print("*El 'numero de results'", num_obj, "no tiene fabricante especificado.")
     if (len(info['results'])) < 100:
        break
-    skip = skip + 100
+    skip_num = skip_num + 100
