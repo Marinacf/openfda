@@ -40,13 +40,13 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         # A continuación, el mensaje que le mandamos al cliente: un texto junto con el recurso solicitado.
         message = """<html>
-        <body>
-        <ol>
+        <body style="background-color:#F6CEF5;">
+        <ul>
         """
-        message +="<h2>Los 10 medicamentos son:</h2>"
+        message +="<h2><font color='#CC2EFA'>Los 10 medicamentos son:</font></h2>"
         for medicina in medicamentos: # Iteramos sobre la lista de medicamentos, obteniendo cada uno en concreto.
-            message += "<li>"+medicina+"</li>"
-        message += """</ol>
+            message += "<li type='square'>"+medicina+"</li>"
+        message += """</ul>
         </body>
         </html>
         """
