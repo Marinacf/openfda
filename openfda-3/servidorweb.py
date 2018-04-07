@@ -1,10 +1,10 @@
-import http.server
+import http.server # Importamos aquellos módulos que utilizaremos posteriormente.
 import socketserver
 import http.client
 import json
 
 PORT = 8000 # Puerto donde lanzar el servidor
- # Creamos en primer lugar un codigo que funcione como cliente
+# Creamos en primer lugar un código que funcione como cliente.
 headers = {'User-Agent': 'http-client'}
 try:
     conexion = http.client.HTTPSConnection("api.fda.gov")
@@ -27,15 +27,15 @@ for elemento in range(len(info['results'])):
         medicamentos.append(info['results'][elemento]['openfda']['generic_name'][0])
     else:
         medicamentos.append('El medicamento no tiene informacion asignada')
-# Para introducirlos en la lista, itero sobre la la longitud de los 10 resultados que nos dan, y en el caso de que
-# exista el apartado 'openfda', y por tanto, su información, incluiremos a la lista medicamentos, los nombres
-# genéricos de los medicamentos de los diez resultados que obtenemos con limit.
-
+# Para introducir los medicamentos en la lista, itero sobre la la longitud de los 10 resultados que obtenemos por el limit, y
+# en el caso de que exista el apartado 'openfda', y por tanto, su información, incluiremos a la lista medicamentos,
+# los nombres genéricos de cada producto. En el caso de que no existiera dicha información, mediante un else
+# incluiriamos a la lista medicamentos una frase indicando que no existe la información buscada.
 #Realizamos una clase con nuestro manejador, aplicando herencia de BaseHTTPRequestHandler.
 class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self): # Realizamos un metodo que se invoca automaticamente cada vez que haya una peticion GET por HTTP.
         # El recurso que nos solicitan se encuentra en self.path.
-        self.send_response(200) # mensaje de respuesta, primera linea = status (OK)
+        self.send_response(200) # mensaje de respuesta: primera linea = status (OK)
         self.send_header('Content-type', 'text/html') # cabeceras para que el cliente sepa que el contenido se trata de un HTML.
         self.end_headers()
         # A continuación, el mensaje que le mandamos al cliente: un texto junto con el recurso solicitado.
@@ -57,7 +57,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 # El servidor comienza aquí:
 Handler = testHTTPRequestHandler #Establecemos como manejador nuestra propia clase, llamada Handler (objeto).
 httpd = socketserver.TCPServer(("", PORT), Handler) # Configuramos el socket del servidor, esperando conexiones
-# de clientes
+# de clientes.
 print("serving at port", PORT)
 
 # Entramos en el bucle principal, atendiendo las peticiones desde nuestro manejador (cada vez que ocurra un 'GET'
