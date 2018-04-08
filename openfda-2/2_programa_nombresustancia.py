@@ -20,7 +20,7 @@ while True:
     info = json.loads(info_raw)
     for num_obj in range(len(info['results'])):
         if info['results'][num_obj]['openfda']:
-            print("El fabricante", num_obj, "es:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
+            print("El fabricante del 'numero de results'", num_obj, "es:", info['results'][num_obj]['openfda']['manufacturer_name'][0])
         else:
             print("*El 'numero de results'", num_obj, "no tiene fabricante especificado.")
     if (len(info['results'])) < 100:
