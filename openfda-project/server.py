@@ -51,7 +51,13 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
                         <input type = "submit" value="Warnings List">
                         </input>
                     </form>
-                    *Si se introduce un valor erroneo, o fuera de los valores de 'limit', se tomara el valor por defecto*
+                    
+                    *Si se introduce un valor numerico erroneo, o fuera de los valores de 'limit', se tomara el valor por defecto (limit=1)*
+                    <br>*Si seleccionas la opcion de visualizar medicamentos, companies o warnings aleatorios independientemente, estos tres campos 
+                    estaran relacionados segun su orden, es decir, el medicamento que te salga al pulsar 'Lists Drugs' en primer lugar, sera el 
+                    cual su company sea la que aparezca al pulsar, 'List Companies' en primer lugar,cuyo Warning
+                    sera el que aparezca en la misma posicion que los dos anteriores, al pulsar su respectivo boton. 
+                    Y asi con todas las posiciones.*</br>
                 </body>
             </html>
                 """
@@ -100,7 +106,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
             try:
                 if limit_parametros[0] == "limit": #limit se encuentra en la posicion 0, y su valor en la 1.
                     limit=int(limit_parametros[1]) #aseguramos que en la 0 esta limit y no otro parametro.
-                    if limit>100:                   #si el limite es mayor que 100, le daremos el valor por defecto
+                    if limit>100:                  #si el limite es mayor que 100, le daremos el valor por defecto
                         limit=1
             except ValueError: #En caso de introducir un valor de limit erroneo, le daremos el valor por defecto 1.
                 limit=1
@@ -181,7 +187,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
                         list_drugs.append('"DRUG" desconocida.')
 
 
-            except KeyError:
+            except KeyError:  #En caso de introducir una droga incorrecta o no introducir ninguna, lo trataremos mediante un except.
                 list_drugs.append('Medicamento introducido no valido, porfavor vuelva a la pagina de inicio e introduzca uno correcto.')
             final_html = self.dame_pag_web(list_drugs)
             self.wfile.write(bytes(final_html, "utf8"))
