@@ -51,7 +51,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
                         <input type = "submit" value="Warnings List">
                         </input>
                     </form>
-                    *Si se introduce un valor erroneo, se tomara el valor por defecto*
+                    *Si se introduce un valor erroneo, o fuera de los valores de 'limit', se tomara el valor por defecto*
                 </body>
             </html>
                 """
@@ -100,7 +100,8 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
             try:
                 if limit_parametros[0] == "limit": #limit se encuentra en la posicion 0, y su valor en la 1.
                     limit=int(limit_parametros[1]) #aseguramos que en la 0 esta limit y no otro parametro.
-
+                    if limit>100:                   #si el limite es mayor que 100, le daremos el valor por defecto
+                        limit=1
             except Exception: #En caso de introducir un valor de limit erroneo, le daremos el valor por defecto 1.
                 limit=1
 
@@ -169,16 +170,21 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
             info1 = r1.read()
             info_raw = info1.decode("utf8")
             info = json.loads(info_raw)
-            buscador_drugs = info['results']
-            for resultado in buscador_drugs:
-                if ('generic_name' in resultado['openfda']):
-                    list_drugs.append(resultado['openfda']['generic_name'][0])
 
-                else:
-                    list_drugs.append('"DRUG" desconocida.')
+            try:
+                buscador_drugs = info['results']
+                for resultado in buscador_drugs:
+                    if ('generic_name' in resultado['openfda']):
+                        list_drugs.append(resultado['openfda']['generic_name'][0])
 
-            final_html = self.dame_pag_web(list_drugs)
-            self.wfile.write(bytes(final_html, "utf8"))
+                    else:
+                        list_drugs.append('"DRUG" desconocida.')
+
+                final_html = self.dame_pag_web(list_drugs)
+                self.wfile.write(bytes(final_html, "utf8"))
+            except KeyError:
+                print('Introduzca un nombre de medicamento correcto.')
+
         elif 'searchCompany' in self.path:
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
