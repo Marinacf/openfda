@@ -102,7 +102,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
                     limit=int(limit_parametros[1]) #aseguramos que en la 0 esta limit y no otro parametro.
                     if limit>100:                   #si el limite es mayor que 100, le daremos el valor por defecto
                         limit=1
-            except Exception: #En caso de introducir un valor de limit erroneo, le daremos el valor por defecto 1.
+            except ValueError: #En caso de introducir un valor de limit erroneo, le daremos el valor por defecto 1.
                 limit=1
 
         if self.path=='/': #No tiene recurso determinado.
@@ -198,17 +198,20 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
             info1 = r1.read()
             info_raw = info1.decode("utf8")
             info = json.loads(info_raw)
-            buscador_company = info['results']
+            try:
+                buscador_company = info['results']
 
-            for resultado in buscador_company:
-                if ('manufacturer_name' in resultado['openfda']):
-                    list_companies.append(resultado['openfda']['manufacturer_name'][0])
+                for resultado in buscador_company:
+                    if ('manufacturer_name' in resultado['openfda']):
+                        list_companies.append(resultado['openfda']['manufacturer_name'][0])
 
-                else:
-                    list_companies.append('"COMPANY" desconocida.')
+                    else:
+                        list_companies.append('"COMPANY" desconocida.')
 
-            final_html = self.dame_pag_web(list_companies)
-            self.wfile.write(bytes(final_html, "utf8"))
+                final_html = self.dame_pag_web(list_companies)
+                self.wfile.write(bytes(final_html, "utf8"))
+            except KeyError:
+                print('Introduzca un nombre de compania correcto')
         elif 'redirect' in self.path: #Redireccion a la pagina principal.
             self.send_response(302)
             self.send_header('Location', 'http://localhost:'+str(PORT))
