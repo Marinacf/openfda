@@ -180,10 +180,11 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
                     else:
                         list_drugs.append('"DRUG" desconocida.')
 
-                final_html = self.dame_pag_web(list_drugs)
-                self.wfile.write(bytes(final_html, "utf8"))
+
             except KeyError:
-                print('Introduzca un nombre de medicamento correcto.')
+                list_drugs.append('Medicamento introducido no valido, porfavor vuelva a la pagina de inicio e introduzca uno correcto.')
+            final_html = self.dame_pag_web(list_drugs)
+            self.wfile.write(bytes(final_html, "utf8"))
 
         elif 'searchCompany' in self.path:
             self.send_response(200)
@@ -208,10 +209,10 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
                     else:
                         list_companies.append('"COMPANY" desconocida.')
 
-                final_html = self.dame_pag_web(list_companies)
-                self.wfile.write(bytes(final_html, "utf8"))
             except KeyError:
-                print('Introduzca un nombre de compania correcto')
+                list_companies.append('Nombre de compania incorrecto, porfavor vuelva a la pagina de inicio e introduzca un nombre correcto.')
+            final_html = self.dame_pag_web(list_companies)
+            self.wfile.write(bytes(final_html, "utf8"))
         elif 'redirect' in self.path: #Redireccion a la pagina principal.
             self.send_response(302)
             self.send_header('Location', 'http://localhost:'+str(PORT))
