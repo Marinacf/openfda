@@ -57,6 +57,17 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
                 """
         return html
 
+    def dame_resultados_obtenidos (self, limit=10): #Obtenemos toda la informacion.
+        headers = {'User-Agent': 'http-client'}
+        conexion = http.client.HTTPSConnection(self.OPENFDA_URL)
+        conexion.request("GET", self.OPENFDA_EVENTO + "?limit="+str(limit))
+        print (self.OPENFDA_EVENTO + "?limit="+str(limit))
+        r1 = conexion.getresponse()
+        info_raw = r1.read().decode("utf8")
+        info = json.loads(info_raw)
+        resultados_obtenidos = info['results']
+        return resultados_obtenidos
+
     def dame_pag_web (self, lista): #metodo que a partir de una lista concreta, realiza la pagina web html (aparecen al
                                     #hacer click en los botones del formulario).
         lista_html = """
@@ -76,18 +87,6 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
                                 </html>
                             """
         return lista_html
-
-
-    def dame_resultados_obtenidos (self, limit=10): #Obtenemos toda la informacion.
-        headers = {'User-Agent': 'http-client'}
-        conexion = http.client.HTTPSConnection(self.OPENFDA_URL)
-        conexion.request("GET", self.OPENFDA_EVENTO + "?limit="+str(limit))
-        print (self.OPENFDA_EVENTO + "?limit="+str(limit))
-        r1 = conexion.getresponse()
-        info_raw = r1.read().decode("utf8")
-        info = json.loads(info_raw)
-        resultados_obtenidos = info['results']
-        return resultados_obtenidos
 
     def do_GET(self):
         lista_recursos = self.path.split("?") #separamos el recurso por la interrogacion, para estudiar los parametros.
