@@ -13,7 +13,7 @@ class testHTTPRequestHandler(http.server.BaseHTTPRequestHandler): #Realizamos un
     OPENFDA_COMPANIA = '&search=openfda.manufacturer_name:'
 
 
-    def dame_pag_principal(self): #Contruye una pagina html que vera el cliente en forma de formularios
+    def dame_pag_principal(self): #Construye una pagina html que vera el cliente en forma de formularios
         html = """
             <html>
                 <head>
